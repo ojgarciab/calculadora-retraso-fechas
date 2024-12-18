@@ -44,8 +44,8 @@ const cambioHoraReal = (evento) => {
 
 const cambioDiferencia = () => {
     segundosDiferencia = (
-        (new Date(window["hora-real"].value).getTime())
-        - (new Date(window["hora-camara"].value).getTime())
+        (new Date(window["hora-camara"].value).getTime())
+        - (new Date(window["hora-real"].value).getTime())
     ) / 1000;
     window["diferencia"].value = conversionSegundos(segundosDiferencia);
 };
