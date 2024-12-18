@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <!-- Meta tags requeridos -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!-- Recursos de Bootstrap -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <title>Calculadora de retraso de fechas</title>
+    </head>
+    <body style="padding-top: 2rem;">
+        <div class="container">
+            <h1>Datos de la imagen</h1>
+            <div class="mb-3">
+                <label for="hora-camara-calculo" class="form-label">Hora registrada en la cámara</label>
+                <input type="datetime-local" class="form-control" id="hora-camara-calculo" aria-describedby="horaCamaraCalculoAyuda">
+                <div id="horaCamaraCalculoAyuda" class="form-text">Introduzca la fecha y hora del archivo de la cámara a la que desea calcular la hora real a la que fue tomada.</div>
+            </div>
+            <div class="mb-3">
+                <label for="hora-real" class="form-label">Hora real calculada</label>
+                <input type="datetime-local" class="form-control" id="hora-real" disabled>
+                <div id="horaRealAyuda" class="form-text">Esta es la hora real en la que fue tomada la foto.</div>
+            </div>
+        </div>
+        <div class="container">
+            <h1>Datos de referencia</h1>
+            <div class="mb-3">
+                <label for="hora-camara" class="form-label">Hora registrada en la cámara</label>
+                <input type="datetime-local" class="form-control" id="hora-camara" aria-describedby="horaCamaraAyuda">
+                <div id="horaCamaraAyuda" class="form-text">Introduzca la fecha y hora del archivo de la cámara.</div>
+            </div>
+            <div class="mb-3">
+                <label for="hora-real" class="form-label">Hora real</label>
+                <input type="datetime-local" class="form-control" id="hora-real" aria-describedby="horaRealAyuda">
+                <div id="horaRealAyuda" class="form-text">Introduzca la fecha y hora real a la que se tomó la foto.</div>
+            </div>
+            <div class="mb-3">
+                <label for="hora-real" class="form-label">Diferencia de tiempo</label>
+                <input type="text" class="form-control" id="hora-real" disabled>
+            </div>
+        </div>
+    </body>
+    <script src="aplicacion.js"></script>
+</html>
