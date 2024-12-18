@@ -1,16 +1,15 @@
 var segundosDiferencia = 0;
-
-const eventoCambio = new Event("change");
 const ahora = new Date();
 
 const conversionFecha = (fecha) => {
-    console.log(fecha);
     if (!(fecha instanceof Date) || isNaN(fecha)) return "";
     return fecha.toISOString().replace(/(:?\.\d+)?Z\d*$/, "");
 }
 
 const conversionSegundos = (segundos) => {
     let resultado = [];
+    resultado[0] = (segundos < 0) ? "-" : "";
+    segundos = Math.abs(segundos);
     const años = Math.trunc(segundos / 31536000);
     segundos %= 31536000;
     const días = Math.trunc(segundos / 86400);
@@ -19,31 +18,24 @@ const conversionSegundos = (segundos) => {
     segundos %= 3600;
     const minutos = Math.trunc(segundos / 60);
     segundos %= 60;
-    if (años > 0) resultado.push(`${años} años`);
-    if (días > 0) resultado.push(`${años} días`);
+    if (años > 0) resultado[0] += `${años} años`;
+    if (días > 0) resultado.push(`${días} días`);
     if (horas > 0) resultado.push(`${horas} horas`);
     if (minutos > 0) resultado.push(`${minutos} minutos`);
     if (segundos > 0) resultado.push(`${segundos} segundos`);
-    console.log(resultado);
     return resultado.join(", ");
 }
 
 const cambioHoraCamaraCalculo = (evento) => {
-    console.log(window["hora-camara-calculo"]);
-    let fecha = new Date(window["hora-camara-calculo"].value);
-    fecha.setSeconds(fecha.getSeconds() + diferencia);
-    window["hora-real-calculo"].value = conversionFecha(fecha);
-    console.log(fecha);
+    cambioCalculo();
 };
 
 const cambioHoraCamara = (evento) => {
-    console.log(window["hora-camara"]);
     localStorage.setItem("hora-camara", window["hora-camara"].value);
     cambioDiferencia();
 };
 
 const cambioHoraReal = (evento) => {
-    console.log(window["hora-real"]);
     localStorage.setItem("hora-real", window["hora-real"].value);
     cambioDiferencia();
 };
@@ -53,8 +45,13 @@ const cambioDiferencia = () => {
         (new Date(window["hora-real"].value).getTime())
         - (new Date(window["hora-camara"].value).getTime())
     ) / 1000;
-    console.log(segundosDiferencia);
     window["diferencia"].value = conversionSegundos(segundosDiferencia);
+};
+
+const cambioCalculo = () => {
+    let fecha = new Date(window["hora-camara-calculo"].value);
+    fecha.setSeconds(fecha.getSeconds() + segundosDiferencia);
+    window["hora-real-calculo"].value = conversionFecha(fecha);
 };
 
 document.addEventListener(
@@ -69,8 +66,8 @@ document.addEventListener(
         window["hora-real"].value = conversionFecha(new Date(localStorage.getItem("hora-real") ?? ahora));
         /* Provocamos el cálculo de la diferencia */
         cambioDiferencia();
-        /* Fijamos la hora actual y provocamos cambio */
+        /* Fijamos la hora actual y provocamos cambio del cálculo */
         window["hora-camara-calculo"].value = conversionFecha(ahora);
-        window["hora-camara-calculo"].dispatchEvent(eventoCambio);
+        cambioCalculo();
     }
 );
